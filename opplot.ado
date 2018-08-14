@@ -203,6 +203,9 @@ program define opplot
 		* particular bar in the figure; the order in which clusterids
 		* appear in the saved dataset is the same order they appear in 
 		* the plot
+		
+		* Strip off double quotes if user supplied filename in double quotes
+		local savedata = subinstr(`"`savedata'"', `"""',  "", .)
 
 		if "`savedata'" != "" {
 			drop in `=_N'
