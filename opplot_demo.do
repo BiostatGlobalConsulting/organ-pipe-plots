@@ -83,10 +83,16 @@ opplot y , clustvar(clusterid) stratvar(stratumid) ///
 opplot y , clustvar(clusterid) stratvar(stratumid) ///
 		stratum(0) title(Stratum 0) name(Demo6,replace) ///
 		xsize(20) ysize(6) export(Stratum_0_wide.png)
+		
+ * Demo saving the accompanying dataset and having a look at it            
+opplot y , clustvar(clusterid) stratvar(stratumid) ///
+        stratum(0) title(Stratum 0) name(Demo6,replace) ///
+        xsize(20) ysize(6) savedata(Stratum_6)
+use Stratum_6, clear 
+browse 
 
 * Here is the 'syntax' statement from opplot.  I have demoed the useful
-* features in this program.  The 'savedata' option is currently commented
-* out, but you can uncomment and use it.
+* features in this program.  
 	
 /*		
 	syntax varlist(max=1) [if] [in], CLUSTVAR(varname fv) ///
@@ -98,7 +104,7 @@ opplot y , clustvar(clusterid) stratvar(stratumid) ///
 	 EXPORTSTRAtumname EXPORT(string) EXPORTWidth(integer 2000) ///
 	 SAVING(string asis) NAME(string) SAVEDATA(string asis) ///
 	 XSIZE(real -9) YSIZE(real -9) ]
-	 
 */
 
-* Let me know if you have questions!		
+* Let me know if you have questions!  
+* Email: Dale.Rhoda@biostatglobal.com		

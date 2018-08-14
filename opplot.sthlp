@@ -130,15 +130,17 @@
 	   to IGNORE the weightvar.){p_end}
 	   
 {pstd} {bf:SAVEDATA}(string) - If this option is specified, the command will 
-       save a dataset using the STRATUM name. The dataset includes one row
-	   per bar in the plot.  The left-most bar is represented by row 1 and the
-	   right-most bar by the last row in the dataset.  The dataset holds several
-	   informative columns describing what variable is summarized, how many 
-	   respondents are represented in each bar, the proportion of the population
-	   represented by each bar, and the sample coverage in each bar (rounded to
-	   the nearest percent).  This dataset can be useful for identifying the
-	   cluster ID for bars that show surprisingly low or surprisingly high 
-	   coverage.{p_end}
+       save a dataset using the string specified, which doesn't need to be in
+	   double quotes. The dataset includes one row per bar in the plot.  The 
+	   left-most bar is represented by row 1 and the right-most bar by the last 
+	   row in the dataset.  The dataset holds several informative columns 
+	   describing what variable is summarized, how many respondents are 
+	   represented in each bar, the proportion of the population represented by
+	   each bar, and the sample coverage in each bar (rounded to the nearest 
+	   percent).  This dataset can be useful for identifying the cluster ID for 
+	   bars that show surprisingly low or surprisingly high coverage.  SAVEDATA 
+	   uses the replace option when saving the dataset, so an existing dataset 
+	   with the same filename will be overwritten.{p_end}
 	   
 {pstd} {bf:EXPORTSTRAtumname} - If this option is specified, the command will 
        export a .PNG image of the plot to the current working directory and uses

@@ -1,4 +1,4 @@
-*! opplot version 1.09 - Biostat Global Consulting - 2018-06-22
+*! opplot version 1.10 - Biostat Global Consulting - 2018-08-14
 *******************************************************************************
 * Change log
 * 				Updated
@@ -36,6 +36,9 @@
 *                                        option, if necessary, to yield bars
 *                                        of equal width)
 *
+* 2018-08-14	1.10	Mary Prier		Added line of code that strips out
+*                      					double quotes of savedata option, 
+*										if user supplied filename in double quotes
 *******************************************************************************
 
 program define opplot
@@ -203,6 +206,9 @@ program define opplot
 		* particular bar in the figure; the order in which clusterids
 		* appear in the saved dataset is the same order they appear in 
 		* the plot
+		
+		* Strip off double quotes if user supplied filename in double quotes
+		local savedata = subinstr(`"`savedata'"', `"""',  "", .)
 
 		if "`savedata'" != "" {
 			drop in `=_N'
