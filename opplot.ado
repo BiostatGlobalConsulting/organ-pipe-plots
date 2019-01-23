@@ -1,4 +1,4 @@
-*! opplot version 1.10 - Biostat Global Consulting - 2018-08-14
+*! opplot version 1.11 - Biostat Global Consulting - 2019-01-22
 *******************************************************************************
 * Change log
 * 				Updated
@@ -33,12 +33,18 @@
 *
 * 2018-06-22	1.09	Dale Rhoda		Added the equalwidth option 
 *                                       (which will over-ride the weightvar
-*                                        option, if necessary, to yield bars
-*                                        of equal width)
+*                                       option, if necessary, to yield bars
+*                                       of equal width)
 *
 * 2018-08-14	1.10	Mary Prier		Added line of code that strips out
 *                      					double quotes of savedata option, 
 *										if user supplied filename in double quotes
+*
+* 2019-01-22	1.11	Dale Rhoda		Added options to add a line indicating
+*      									the number of respondents per cluster.
+*										(PLOTN NLINEColor NLINEWIdth NLINEPattern
+*										 YTITLE2 and YROUND2)
+*
 *******************************************************************************
 
 program define opplot
@@ -52,7 +58,9 @@ program define opplot
 	 XTITLE(string) YTITLE(string) XLABEL(string) YLABEL(string) ///
 	 EXPORTSTRAtumname EXPORT(string) EXPORTWidth(integer 2000) ///
 	 SAVING(string asis) NAME(string) SAVEDATA(string asis) ///
-	 XSIZE(real -9) YSIZE(real -9) TWOWAY(string asis) ]
+	 XSIZE(real -9) YSIZE(real -9) TWOWAY(string asis) PLOTN ///
+	 NLINEColor(string asis) NLINEWidth(string) NLINEPattern(string) ///
+	 YTITLE2(string asis) YROUND2(integer 5) ]
 	
 	* Note: opplot.ado is distributed as part of the World Health Organization's
 	* Vaccination Coverage Quality Indicators (VCQI) suite of Stata programs.
@@ -63,7 +71,7 @@ program define opplot
 	
 	if "$VCQI_LOGOPEN" == "1" {		
 		local oldvcp $VCP
-	global VCP opplot
+		global VCP opplot
 		vcqi_log_comment $VCP 5 Flow "Starting"
 	}
 	
@@ -187,14 +195,31 @@ program define opplot
 		}
 		if "`ytitle'" != "" local pass_thru `pass_thru' ytitle("`ytitle'")
 		
+		* If the user asks to plot the number of respondents (N) then
+		* set up the twoway line and twoway scatteri syntax to do it.
+		if "`plotn'" != "" {
+			if "`nlinecolor'"   == "" local nlinecolor gs10
+			if "`nlinewidth'"   == "" local nlinewidth *.5
+			if "`nlinepattern'" == "" local nlinepattern dash
+			if "`ytitle2'"      == "" local ytitle2 Number of Respondents
+			sum `n_respondents'
+			local y2max = `yround2' * ceil(`=r(max)+1'/`yround2')
+			local plotnsyntax (line `n_respondents' `cumulative_barwidth', connect(stairstep) lc(`nlinecolor') lw(`nlinewidth') lp(`nlinepattern') yaxis(2)) ///
+			                  (scatteri `=`n_respondents'[`=_N-1']' `=`cumulative_barwidth'[`=_N-1']' `=`n_respondents'[`=_N-1']' `=`cumulative_barwidth'[`=_N']' , ///
+							   ms(i) connect(direct) lc(`nlinecolor') lw(`nlinewidth') lp(`nlinepattern') yaxis(2))
+			local yaxis2title ytitle("`ytitle2'", axis(2))
+			local yaxis2label ylabel(0(`yround2')`y2max', axis(2) angle(0))
+		}
+		
 		graph twoway ///
 		(bar `bartop' `cumulative_barwidth', bartype(spanning) fcolor(`barcolor2') ///
 			lpattern(solid) lcolor(`linecolor2') lwidth(*.1) ) ///
 		(bar `barheight' `cumulative_barwidth', bartype(spanning) fcolor(`barcolor1') ///
-			lpattern(solid) lcolor(`linecolor1') lwidth(*.1) ) ,  ///
+			lpattern(solid) lcolor(`linecolor1') lwidth(*.1) ) ///
+			`plotnsyntax' ,  ///
 		graphregion(fcolor(white)) xtitle("`xtitle'") `pass_thru' `twoway' ///
 		legend(off)  `namestring' `savingstring' `xsizestring' `ysizestring' ///
-		xlabel(none)
+		xlabel(none) `yaxis2label' `yaxis2title'
 		
 		if "`export'" != "" {
 			graph export "`export'", width(`exportwidth') replace
@@ -209,6 +234,10 @@ program define opplot
 		
 		* Strip off double quotes if user supplied filename in double quotes
 		local savedata = subinstr(`"`savedata'"', `"""',  "", .)
+		
+		* Strip off , replace if user supplied it in the savedata option
+		local savedata = subinstr(`"`savedata'"', ", replace",  "", .)
+		local savedata = subinstr(`"`savedata'"', ",replace" ,  "", .)
 
 		if "`savedata'" != "" {
 			drop in `=_N'

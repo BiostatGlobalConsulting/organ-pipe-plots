@@ -2,7 +2,7 @@
 *
 * Program to illustrate making organ pipe plots in two different strata
 *
-* Dale Rhoda 2016-07-22
+* Dale Rhoda 
 * Dale.Rhoda@biostatglobal.com
 *
 ********************************************************************************
@@ -91,19 +91,34 @@ opplot y , clustvar(clusterid) stratvar(stratumid) ///
 use Stratum_6, clear 
 browse 
 
+* Demo plotting the number of respondents         
+opplot y , clustvar(clusterid) stratvar(stratumid) ///
+           stratum(0) title(Stratum 0) name(Demo7,replace) ///
+           xsize(20) ysize(6) plotn
+
+* Demo plotting the number of respondents using all related options       
+opplot y , clustvar(clusterid) stratvar(stratumid) ///
+           stratum(0) title(Stratum 0) name(Demo8,replace) ///
+           xsize(20) ysize(6) plotn nlinecolor(red) nlinewidth(*2) ///
+           nlinepattern(dash) ytitle2(Number of Respondents (N)) ///
+           yround2(2)
+
+
 * Here is the 'syntax' statement from opplot.  I have demoed the useful
 * features in this program.  
 	
 /*		
 	syntax varlist(max=1) [if] [in], CLUSTVAR(varname fv) ///
 	[STRATVAR(varname fv) STRATUM(string) WEIGHTvar(varname) ///
-	 TITLE(string) SUBtitle(string) FOOTnote(string) ///
+	 TITLE(string) SUBtitle(string) FOOTnote(string) NOTE(string) ///
 	 BARCOLOR1(string) LINECOLOR1(string) ///
-	 BARCOLOR2(string) LINECOLOR2(string) ///
+	 BARCOLOR2(string) LINECOLOR2(string) EQUALWIDTH ///
 	 XTITLE(string) YTITLE(string) XLABEL(string) YLABEL(string) ///
 	 EXPORTSTRAtumname EXPORT(string) EXPORTWidth(integer 2000) ///
 	 SAVING(string asis) NAME(string) SAVEDATA(string asis) ///
-	 XSIZE(real -9) YSIZE(real -9) ]
+	 XSIZE(real -9) YSIZE(real -9) TWOWAY(string asis) PLOTN ///
+	 NLINEColor(string asis) NLINEWidth(string) NLINEPattern(string) ///
+	 YTITLE2(string asis) YROUND2(integer 5) ]
 */
 
 * Let me know if you have questions!  
