@@ -40,6 +40,12 @@
 	      {it:NAME}(string) 
 	      {it:XSIZE}(real) 
 	      {it:YSIZE}(real) 
+	      {it:PLOTN}
+	      {it:NLINEColor}(string) 
+	      {it:NLINEWidth}(string) 
+	      {it:NLINEPattern}(string) 
+	      {it:YTITLE2}(string) 
+	      {it:YROUND2}(integer 5) 
  ] {p_end}
 
  
@@ -130,7 +136,7 @@
 	   to IGNORE the weightvar.){p_end}
 	   
 {pstd} {bf:SAVEDATA}(string) - If this option is specified, the command will 
-       save a dataset using the string specified, which doesn't need to be in
+     save a dataset using the string specified, which doesn't need to be in
 	   double quotes. The dataset includes one row per bar in the plot.  The 
 	   left-most bar is represented by row 1 and the right-most bar by the last 
 	   row in the dataset.  The dataset holds several informative columns 
@@ -159,6 +165,25 @@
        for plotting.  You may use the {cmd:twoway} option to pass through any valid
 	   twoway options that are not already hard-coded here.  See the list
 	   below under 'All Else'.{p_end}
+	      	   
+{pstd} {bf:PLOTN}  If specified, the plot will include a second y-axis and a 
+       line showing the number of respondents per cluster.  User may specify
+	   the properties of the line and of the axis title and labels using options
+	   listed below. {p_end}
+	   
+{pstd} {bf:NLINEColor}(string) Color for the line that shows N. {p_end}
+
+{pstd} {bf:NLINEWidth}(string) Width of the line that shows N. {p_end}
+
+{pstd} {bf:NLINEPattern}(string) Pattern of the line that shows N. {p_end}
+
+{pstd} {bf:YTITLE2}(string) Title for second y-axis if the user specifies the
+       PLOTN option.  Default is "Number of Respondents".{p_end}
+
+{pstd} {bf:YROUND2}(integer 5) Affects the labels on the second y-axis if the 
+       user specifies the PLOTN option.  The scale will run from 0 up to the
+	   (maximum number of respondents in a cluster plus one) rounded up to the next multiple
+	   of YROUND2.  Default is to round up to the next multiple of 5.{p_end}
 	   
 {pstd} {bf:All Else} - Several standard twoway options are hard-coded as pass-thru 
 	   options here.  These include title, subtitle, note, xtitle, ytitle, xlabel, 
@@ -259,6 +284,18 @@
 {cmd:  		xsize(20) ysize(6) savedata(Stratum_6)}
 {cmd: . use Stratum_6, clear }
 {cmd: . browse }
+
+{cmd: * Demo plotting the number of respondents		}
+{cmd: . opplot y , clustvar(clusterid) stratvar(stratumid) ///}
+{cmd: 		stratum(0) title(Stratum 0) name(Demo7,replace) ///}
+{cmd:  		xsize(20) ysize(6) plotn}
+
+{cmd: * Demo plotting the number of respondents	using all related options	}
+{cmd: . opplot y , clustvar(clusterid) stratvar(stratumid) ///}
+{cmd: 		stratum(0) title(Stratum 0) name(Demo8,replace) ///}
+{cmd:  		xsize(20) ysize(6) plotn nlinecolor(red) nlinewidth(*2) ///}
+{cmd:       nlinepattern(dash) ytitle2("Number of Respondents (N)") ///}
+{cmd:       yround2(2)}
 		
 {title:Author}
 {p}
