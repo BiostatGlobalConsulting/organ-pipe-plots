@@ -127,7 +127,7 @@ program define opplot
 		}
 		
 		* establish default values if the user doesn't specify them
-		if "`ylabel'" == "" local ylabel 0(50)100, angle(h)
+		if "`ylabel'" == "" local ylabel 0(50)100, angle(h) nogrid
 		if "`ytitle'" == "" local ytitle Percent of Cluster
 		if "`barcolor1'"  == "" local barcolor1 pink
 		if "`linecolor1'" == "" local linecolor1 `barcolor'*1.5

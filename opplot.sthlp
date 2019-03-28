@@ -62,7 +62,7 @@
        {it:organ pipe plot}.  Each cluster is represented with a vertical bar.
 	   The shaded portion of the bar represents the proportion of respondents in
 	   that cluster whose value of yvar is 1.  Clusters with the highest 
-	   proporiton of 1's (also known as {it:coverage}) are shown at the left side 
+	   proportion of 1's (also known as {it:coverage}) are shown at the left side 
 	   of the plot.  Coverage decreases monotonically from left to right.{p_end}  
 {pstd} If the data are self-weighting then the shaded proportion of the plot
        is equal to the sample coverage.  If the data are weighted
@@ -159,28 +159,28 @@
 	   compatible with the graph export width option (e.g., .png or .tif).{p_end}
 	   	   
 {pstd} {bf:EXPORTwidth}(integer) - The default width of opplot's export option
-       is 2000 pixels.  You may specify a diffrent width with this option.{p_end}
+       is 2000 pixels.  You may specify a different width with this option.{p_end}
 	      	   
 {pstd} {bf:TWOWAY}(string) - The opplot command calls Stata's twoway command
        for plotting.  You may use the {cmd:twoway} option to pass through any valid
 	   twoway options that are not already hard-coded here.  See the list
 	   below under 'All Else'.{p_end}
 	      	   
-{pstd} {bf:PLOTN}  If specified, the plot will include a second y-axis and a 
-       line showing the number of respondents per cluster.  User may specify
+{pstd} {bf:PLOTN} - If specified, the plot will include a second y-axis and a 
+       line showing the number of respondents (N) per cluster.  User may specify
 	   the properties of the line and of the axis title and labels using options
 	   listed below. {p_end}
 	   
-{pstd} {bf:NLINEColor}(string) Color for the line that shows N. {p_end}
+{pstd} {bf:NLINEColor}(string) - Color for the line that shows N. {p_end}
 
-{pstd} {bf:NLINEWidth}(string) Width of the line that shows N. {p_end}
+{pstd} {bf:NLINEWidth}(string) - Width of the line that shows N. {p_end}
 
-{pstd} {bf:NLINEPattern}(string) Pattern of the line that shows N. {p_end}
+{pstd} {bf:NLINEPattern}(string) - Pattern of the line that shows N. {p_end}
 
-{pstd} {bf:YTITLE2}(string) Title for second y-axis if the user specifies the
+{pstd} {bf:YTITLE2}(string) - Title for second y-axis if the user specifies the
        PLOTN option.  Default is "Number of Respondents".{p_end}
 
-{pstd} {bf:YROUND2}(integer 5) Affects the labels on the second y-axis if the 
+{pstd} {bf:YROUND2}(integer 5) - Affects the labels on the second y-axis if the 
        user specifies the PLOTN option.  The scale will run from 0 up to the
 	   (maximum number of respondents in a cluster plus one) rounded up to the next multiple
 	   of YROUND2.  Default is to round up to the next multiple of 5.{p_end}
@@ -205,6 +205,17 @@
 		equal width, regardless of whether the user specified the weightvar.  In
 		other words, the equalwidth option will override the weightvar 
 		option. {p_end}		
+
+{dlgtab:A note on conflicting versions of opplot.ado} 
+
+{pstd}  This program is currently available from two sources: 1) as a 
+		standalone command from the Stata SSC, and 2) as part of a bundle 
+		of programs called the Vaccination Coverage Quality Indicators (VCQI)
+		from the World Health Organization.  The code is meant to be precisely 
+		the same from both sources, but over time there is a danger that you 
+		will have an old version from one source and an updated version from the 
+		other.  You will need to check your adopath to see which version is
+		used when you invoke the command.{p_end}
 
 {hline}
 
@@ -290,12 +301,12 @@
 {cmd: 		stratum(0) title(Stratum 0) name(Demo7,replace) ///}
 {cmd:  		xsize(20) ysize(6) plotn}
 
-{cmd: * Demo plotting the number of respondents	using all related options	}
+{cmd: * Demo plotting the number of respondents using all related options	}
 {cmd: . opplot y , clustvar(clusterid) stratvar(stratumid) ///}
 {cmd: 		stratum(0) title(Stratum 0) name(Demo8,replace) ///}
 {cmd:  		xsize(20) ysize(6) plotn nlinecolor(red) nlinewidth(*2) ///}
-{cmd:       nlinepattern(dash) ytitle2("Number of Respondents (N)") ///}
-{cmd:       yround2(2)}
+{cmd:   	nlinepattern(dash) ytitle2("Number of Respondents (N)") ///}
+{cmd:   	yround2(2)}
 		
 {title:Author}
 {p}
@@ -316,4 +327,10 @@ Email {browse "mailto:Dale.Rhoda@biostatglobal.com":Dale.Rhoda@biostatglobal.com
         (Describes useful features of the optional dataset that can be saved with
 		each plot.){p_end}
 
+{title:Links to PowerPoint Presentations}
+
+{pstd} Organ pipe plots were featured in a talk at the 2018 Stata Conference.{p_end}
+	   
+{pmore} {browse "https://www.stata.com/meeting/columbus18/slides/columbus18_Prier.pptx":2018 conference presentation}{p_end}
+{pmore} {browse "https://www.dropbox.com/s/f13cxov42zvvhc7/StataConference2018_OPPlot_PresentationToUpload_Updated_Noption_Slides.pptx?dl=0":2019 slides updated describing new features}{p_end}
 

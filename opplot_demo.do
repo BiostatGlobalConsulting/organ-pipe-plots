@@ -77,7 +77,7 @@ opplot y , clustvar(clusterid) stratvar(stratumid) ///
 * with better resolution for some purposes
 opplot y , clustvar(clusterid) stratvar(stratumid) ///
 		stratum(0) title(Stratum 0) name(Demo0,replace) ///
-		exportstratumname exportwidth(2000)
+		exportstratumname exportwidth(3000)
 
 * Demo changing the aspect ratio of the figure using xsize and ysize		
 opplot y , clustvar(clusterid) stratvar(stratumid) ///
