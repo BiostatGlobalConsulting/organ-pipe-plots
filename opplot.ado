@@ -1,4 +1,4 @@
-*! opplot version 1.11 - Biostat Global Consulting - 2019-01-22
+*! opplot version 1.13 - Biostat Global Consulting - 2019-12-12
 *******************************************************************************
 * Change log
 * 				Updated
@@ -44,6 +44,18 @@
 *      									the number of respondents per cluster.
 *										(PLOTN NLINEColor NLINEWIdth NLINEPattern
 *										 YTITLE2 and YROUND2)
+*
+* 2019-06-05	1.12	Dale Rhoda		When bars are tied on other quantities, 
+*										sort in descending order of 
+*										n_respondents
+*
+* 2019-12-12	1.13	Dale Rhoda		Cleaned up how the name() option is
+*										processed
+*
+*										Allow the user to specify ytitle(none)
+* 										to turn off the ytitle altogether
+*										(which shifts the plot slightly 
+*										 lefttward)
 *
 *******************************************************************************
 
@@ -129,6 +141,7 @@ program define opplot
 		* establish default values if the user doesn't specify them
 		if "`ylabel'" == "" local ylabel 0(50)100, angle(h) nogrid
 		if "`ytitle'" == "" local ytitle Percent of Cluster
+		if "`=lower(trim("`ytitle'"))'" == "none" local ytitle
 		if "`barcolor1'"  == "" local barcolor1 pink
 		if "`linecolor1'" == "" local linecolor1 `barcolor'*1.5
 		if "`barcolor2'"  == "" local barcolor2 white
@@ -136,7 +149,13 @@ program define opplot
 		if "`exportstratumname'" != "" {
 			local export `stratum'.png
 		}
-		if `"`name'"' != "" local namestring name(`=substr("`name'",1,min(32,length("`name'")))')
+		if `"`name'"' != "" {
+			local stripname `name'
+			local stripname = subinstr("`stripname'", ", replace", "", .)
+			local stripname = subinstr("`stripname'", ",replace" , "", .)
+			local stripname = substr("`stripname'",1,min(32,length("`stripname'")))
+			local namestring name(`stripname' , replace)
+		}	
 		if `"`saving'"' != "" local savingstring saving(`saving')
 		if `xsize'  != -9 local xsizestring xsize(`xsize')
 		if `ysize'  != -9 local ysizestring ysize(`ysize')
@@ -167,8 +186,9 @@ program define opplot
 		keep if `stratvar' == "`stratum'"
 		
 		* sort the bars, left-to-right, in descending order of height and width
-		* (and if there are ties...then sort the ties by ascending clusterID)
-		gsort -`barheight' -`barwidth' `clustvar'
+		* (and if there are ties...then sort the ties by descending n_respondents
+		*  and ascending clusterID)
+		gsort -`barheight' -`barwidth' -`n_respondents' `clustvar'
 		
 		* the background bars always have a height of 100%
 		gen `bartop' = 100	

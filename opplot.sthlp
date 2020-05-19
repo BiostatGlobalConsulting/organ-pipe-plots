@@ -1,11 +1,20 @@
 {smcl}
-{* *! version 1.0 2017-12-20}{...}
+{...}
+{...}
+{* *! opplot.sthlp version 1.00 - Biostat Global Consulting - 2017-12-20}{...}
+{* Change log: }{...}
+{* 				Updated}{...}
+{*				version}{...}
+{* Date 		number 	Name			What Changed}{...}
+{* 2017-12-20	1.00	Dale Rhoda		Original version}{...}
+{* xxxx-xx-xx	1.0x	<name>			<comment>}{...}
+{...}
+{...}
 {viewerjumpto "Syntax" "opplot##syntax"}{...}
 {viewerjumpto "Description" "opplot##description"}{...}
-{viewerjumpto "Detals" "opplot##details"}{...}
+{viewerjumpto "Details" "opplot##details"}{...}
 {viewerjumpto "Remarks" "opplot##remarks"}{...}
 {title:Title}
-
 {phang}
 {bf:opplot} {hline 2} Make an Organ Pipe Plot
 
@@ -88,7 +97,7 @@
 	   
 {marker details}{...}
 
-{dlgtab:Required Input} 
+{dlgtab:Required Inputs} 
 
 {pstd} {bf:yvar} - Binary variable which takes on only values of 0, 1 or missing (.).
        This is the variable whose coverage the program estimates.  As far as 
@@ -101,7 +110,7 @@
 {pstd} {bf:CLUSTVAR}(varname) - Variable that holds the cluster ID.
 	   {p_end}
 	   
-{dlgtab:Optional Input} 
+{dlgtab:Optional Inputs} 
 	   	   
 {pstd} {bf:STRATVAR}(varname) - opplot is meant to show data for one stratum per plot.
        If the dataset holds data for more than one stratum, specify the name of
@@ -187,8 +196,13 @@
 	   
 {pstd} {bf:All Else} - Several standard twoway options are hard-coded as pass-thru 
 	   options here.  These include title, subtitle, note, xtitle, ytitle, xlabel, 
-	   ylabel, saving, name, xsize and ysize.  (The {cmd:footnote} option is a 
-	   synonym for the note option.) (See {help twoway_options}.) {p_end}	   
+	   ylabel, saving, name, xsize and ysize.  Note that {bf:ytitle} defaults to "Percent of cluster".  
+	   You may specify ytitle(" ") to see a blank title or ytitle(none) will 
+	   yield no ytitle and will therefore shift the figure slightly to the left.  Note that 
+	   with the {bf:name} option, the user only needs to specify the name; the 
+	   code always includes the {it:replace} option when the user specifies a name.
+	   Note also that the {cmd:footnote} option is a 
+	   synonym for the note option.) (See {help twoway_options}. {p_end}	
 
 {dlgtab:A note on bar width} 
 
