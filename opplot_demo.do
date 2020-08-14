@@ -1,8 +1,18 @@
+*! opplot_demo version 1.01 - Biostat Global Consulting - 2018-07-03
+*******************************************************************************
+* Change log
+* 				Updated
+*				version
+* Date 			number 	Name			What Changed
+* 2016-07-22	1.00	Dale Rhoda		Original version (date may be wrong)
+* 2018-07-03	1.01	Dale Rhoda		Added plotn option (date may be wrong)
+*******************************************************************************
+
 ********************************************************************************
 *
 * Program to illustrate making organ pipe plots in two different strata
 *
-* Dale Rhoda 
+* Dale Rhoda
 * Dale.Rhoda@biostatglobal.com
 *
 ********************************************************************************
@@ -122,4 +132,4 @@ opplot y , clustvar(clusterid) stratvar(stratumid) ///
 */
 
 * Let me know if you have questions!  
-* Email: Dale.Rhoda@biostatglobal.com		
+* Email: Dale.Rhoda@biostatglobal.com
