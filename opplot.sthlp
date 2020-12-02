@@ -346,5 +346,5 @@ Email {browse "mailto:Dale.Rhoda@biostatglobal.com":Dale.Rhoda@biostatglobal.com
 {pstd} Organ pipe plots were featured in a talk at the 2018 Stata Conference.{p_end}
 	   
 {pmore} {browse "https://www.stata.com/meeting/columbus18/slides/columbus18_Prier.pptx":2018 conference presentation}{p_end}
-{pmore} {browse "https://www.dropbox.com/s/f13cxov42zvvhc7/StataConference2018_OPPlot_PresentationToUpload_Updated_Noption_Slides.pptx?dl=0":2019 slides updated describing new features}{p_end}
+{pmore} {browse "https://www.dropbox.com/s/o3psw0d50l0arvf/opplot_presentation.pptx?dl=0":2020 slides updated describing new features}{p_end}
 
