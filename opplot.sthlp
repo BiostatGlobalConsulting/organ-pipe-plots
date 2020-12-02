@@ -202,7 +202,7 @@
 	   with the {bf:name} option, the user only needs to specify the name; the 
 	   code always includes the {it:replace} option when the user specifies a name.
 	   Note also that the {cmd:footnote} option is a 
-	   synonym for the note option.) (See {help twoway_options}. {p_end}	
+	   synonym for the note option.) (See {help twoway_options}). {p_end}	
 
 {dlgtab:A note on bar width} 
 

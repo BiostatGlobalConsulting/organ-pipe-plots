@@ -1,4 +1,4 @@
-*! opplot version 1.13 - Biostat Global Consulting - 2019-12-12
+*! opplot version 1.14 - Biostat Global Consulting - 2020-06-01
 *******************************************************************************
 * Change log
 * 				Updated
@@ -57,6 +57,8 @@
 *										(which shifts the plot slightly 
 *										 lefttward)
 *
+* 2020-06-01	1.14	Dale Rhoda		Implement `if' and `in'
+*
 *******************************************************************************
 
 program define opplot
@@ -93,6 +95,9 @@ program define opplot
 	quietly {
 	
 		preserve
+		
+		if "`if'" != "" keep `if'
+		if "`in'" != "" keep `in'
 		
 		tempvar wclust wstrat bartop barwidth yweight wsum1 barheight cumulative_barwidth clustvar_copy n_respondents wtvar2 wtsum
 		
